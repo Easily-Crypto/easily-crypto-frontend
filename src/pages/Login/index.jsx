@@ -4,7 +4,7 @@ import LoginFormComponent from "../../components/LoginForm/index";
 const Login = () => {
   return (
     <Page>
-      <LoginFormComponent></LoginFormComponent>
+      <LoginFormComponent />
     </Page>
   );
 };

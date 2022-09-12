@@ -1,5 +1,12 @@
-const Register = () => {
-  return <div>Register</div>;
+import { Page } from "../../components/Page";
+import RegisterFormComponent from "../../components/RegisterForm/index.jsx";
+
+const Login = () => {
+  return (
+    <Page>
+      <RegisterFormComponent />
+    </Page>
+  );
 };
 
-export default Register;
+export default Login;

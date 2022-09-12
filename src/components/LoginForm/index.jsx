@@ -4,9 +4,9 @@ const LoginFormComponent = () => {
   return (
     <LoginForm>
       <h3>Easily Crypto</h3>
-      <label>Username:</label>
+      <label>Usuário:</label>
       <InputLoginForm />
-      <label>Password:</label>
+      <label>Senha:</label>
       <InputLoginForm type="password" />
       <button>Login</button>
       <span>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   width: 360px;
-  height: 400px;
+  height: 750px;
   margin: auto;
 
   background-color: #ffffffcc;
@@ -54,11 +54,11 @@ export const LoginForm = styled.form`
   }
 `;
 
-export const InputLoginForm = styled.input`
+export const InputRegisterForm = styled.input`
   width: 80%;
   height: 30px;
 
-  margin: 0 0 20px;
+  margin: 0 0 10px;
 
   border-style: none;
   border-radius: 3px;
