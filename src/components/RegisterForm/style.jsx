@@ -16,13 +16,16 @@ export const RegisterForm = styled.form`
   align-items: center;
 
   h3 {
-    font-size: 30px;
+    font-size: 40px;
 
     font-family: "kanit", sans-serif;
     font-weight: 600;
     font-style: italic;
 
     margin: 0 0 20px;
+
+    color: #ffee00;
+    text-shadow: 0 0 3px #000;
   }
 
   label {
@@ -42,6 +45,10 @@ export const RegisterForm = styled.form`
     font-style: italic;
     font-size: 25px;
     padding: 3px 0;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   }
 
   span {
