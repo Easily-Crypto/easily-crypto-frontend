@@ -1,7 +1,7 @@
 import HeaderSection from "../../components/Header";
 import { Page } from "../../components/Page";
 
-const Home = () => {
+const Profile = () => {
   return (
     <Page>
       <HeaderSection></HeaderSection>
@@ -9,4 +9,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;
