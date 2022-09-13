@@ -55,7 +55,7 @@ const RegisterFormComponent = () => {
       <InputRegisterForm type="password" />
       <button>Registrar</button>
       <span>
-        Já possui uma conta? <a href="#">Entrar</a>
+        Já possui uma conta? <a href="/login">Entrar</a>
       </span>
     </RegisterForm>
   );

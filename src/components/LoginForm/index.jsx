@@ -5,7 +5,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../api";
 
+import { useNavigate } from "react-router-dom";
+
 const LoginFormComponent = () => {
+  const navigate = useNavigate();
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Digite seu usuário"),
     password: yup.string().required("Digite sua senha"),
@@ -21,11 +25,13 @@ const LoginFormComponent = () => {
 
   const onSubmit = (data) => {
     api.post("login/", data).then((res) => {
-      console.log(res.data);
       localStorage.setItem("token", res.data.token);
+
       api.defaults.headers.common = {
         Authorization: `Token ${res.data.token}`,
       };
+
+      navigate("/");
     });
   };
 
@@ -38,7 +44,7 @@ const LoginFormComponent = () => {
       <InputLoginForm type="password" {...register("password")} />
       <button type="submit">Login</button>
       <span>
-        Não possui uma conta ainda? <a href="#">Registre-se</a>
+        Não possui uma conta ainda? <a href="/register">Registre-se</a>
       </span>
     </LoginForm>
   );
