@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../api";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -19,8 +19,8 @@ const LoginFormComponent = () => {
   }, []);
 
   const formSchema = yup.object().shape({
-    username: yup.string().required("Digite seu usuário"),
-    password: yup.string().required("Digite sua senha"),
+    username: yup.string().required("Campo obrigatório"),
+    password: yup.string().required("Campo obrigatório"),
   });
 
   const {
@@ -30,25 +30,39 @@ const LoginFormComponent = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
+  console.log(errors);
   const onSubmit = (data) => {
-    api.post("login/", data).then((res) => {
-      localStorage.setItem("token", res.data.token);
+    api
+      .post("login/", data)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
 
-      api.defaults.headers.common = {
-        Authorization: `Token ${res.data.token}`,
-      };
-
-      navigate("/");
-    });
+        api.defaults.headers.common = {
+          Authorization: `Token ${res.data.token}`,
+        };
+        toast.success("Login realizado com sucesso");
+        navigate("/");
+      })
+      .catch((err) => toast.error("Usuário e/ou senha incorretos"));
   };
 
   return (
     <LoginForm onSubmit={handleSubmit(onSubmit)}>
       <h3>Easily Crypto</h3>
-      <label>Usuário:</label>
+      <label>
+        Usuário:{" "}
+        {errors.username && (
+          <span className="input-error">{errors.username.message}</span>
+        )}
+      </label>
+
       <InputLoginForm {...register("username")} />
-      <label>Senha:</label>
+      <label>
+        Senha:{" "}
+        {errors.password && (
+          <span className="input-error">{errors.password.message}</span>
+        )}
+      </label>
       <InputLoginForm type="password" {...register("password")} />
       <button type="submit">Login</button>
       <span>
