@@ -42,7 +42,7 @@ const RegisterFormComponent = () => {
       .post("users/register/", data)
       .then((res) => {
         console.log("oi");
-        return navigator("/");
+        return navigator("/login");
       })
       .catch((err) => console.log(err));
   };
