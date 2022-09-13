@@ -1,5 +1,5 @@
 import { Header } from "./styled";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../../api";
 
 const HeaderSection = () => {
@@ -11,9 +11,10 @@ const HeaderSection = () => {
         <h1>Easily Crypto</h1>
 
         <nav>
-          <a href="#">Market</a>
-          <a href="#">Wallets</a>
-          <a href="#">Perfil</a>
+          <Link to="/">Home</Link>
+          <Link to="/market">Market</Link>
+          <Link to="/wallets">Wallets</Link>
+          <Link to="/profile">Perfil</Link>
         </nav>
         <button
           onClick={() => {

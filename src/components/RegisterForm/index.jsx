@@ -3,6 +3,7 @@ import { RegisterForm, InputRegisterForm } from "./style";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
 
 const RegisterFormComponent = () => {
   const formSchema = yup.object().shape({
@@ -55,7 +56,7 @@ const RegisterFormComponent = () => {
       <InputRegisterForm type="password" />
       <button>Registrar</button>
       <span>
-        Já possui uma conta? <a href="/login">Entrar</a>
+        Já possui uma conta? <Link to="/login">Entrar</Link>
       </span>
     </RegisterForm>
   );

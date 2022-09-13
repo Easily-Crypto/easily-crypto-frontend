@@ -4,11 +4,19 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../api";
+import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const LoginFormComponent = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Digite seu usuário"),
@@ -44,7 +52,7 @@ const LoginFormComponent = () => {
       <InputLoginForm type="password" {...register("password")} />
       <button type="submit">Login</button>
       <span>
-        Não possui uma conta ainda? <a href="/register">Registre-se</a>
+        Não possui uma conta ainda? <Link to="/register">Registre-se</Link>
       </span>
     </LoginForm>
   );
