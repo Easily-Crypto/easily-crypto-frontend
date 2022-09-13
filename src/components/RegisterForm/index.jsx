@@ -3,9 +3,11 @@ import { RegisterForm, InputRegisterForm } from "./style";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api";
 
 const RegisterFormComponent = () => {
+  const navigator = useNavigate();
   const formSchema = yup.object().shape({
     username: yup.string().required("Digite um nome de usuário"),
     first_name: yup.string().required("Digite seu primeiro nome"),
@@ -34,27 +36,39 @@ const RegisterFormComponent = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
+  console.log(errors);
+  const handleRegister = (data) => {
+    api
+      .post("users/register/", data)
+      .then((res) => {
+        console.log("oi");
+        return navigator("/login");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
-    <RegisterForm>
+    <RegisterForm onSubmit={handleSubmit(handleRegister)}>
       <h3>Easily Crypto</h3>
       <label>Nome:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("first_name")} />
       <label>Sobrenome:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("last_name")} />
       <label>Nome de usuário:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("username")} />
       <label>E-mail:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("email")} />
       <label>Data de nascimento:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("birth_date")} />
       <label>CPF:</label>
-      <InputRegisterForm />
+      <InputRegisterForm {...register("cpf")} />
       <label>Senha:</label>
-      <InputRegisterForm type="password" />
+      <InputRegisterForm type="password" {...register("password")} />
       <label>Confirme sua senha:</label>
-      <InputRegisterForm type="password" />
-      <button>Registrar</button>
+      <InputRegisterForm
+        type="password"
+        {...register("passwordConfirmation")}
+      />
+      <button type="submit">Registrar</button>
       <span>
         Já possui uma conta? <Link to="/login">Entrar</Link>
       </span>
