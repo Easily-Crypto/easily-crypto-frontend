@@ -13,7 +13,7 @@ import { useUser } from "../../Providers/user";
 const LoginFormComponent = () => {
   const navigate = useNavigate();
 
-  const { getUserWallets } = useUser();
+  const { getUserWallets, getUserInfoProfile } = useUser();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -45,6 +45,7 @@ const LoginFormComponent = () => {
         };
 
         getUserWallets();
+        getUserInfoProfile();
 
         toast.success("Login realizado com sucesso");
         navigate("/");

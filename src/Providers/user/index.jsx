@@ -13,16 +13,14 @@ export const UserProvider = ({ children }) => {
     localStorage.getItem("token") || ""
   );
   const getUserInfoProfile = () => {
-    if (localStorage.getItem("user_info").length) {
-      api
-        .get(`users/${userId}/`, {
-          headers: { Authorization: `Token ${userToken}` },
-        })
-        .then((res) => {
-          localStorage.setItem("user_info", JSON.stringify(res.data));
-          setUserInfo(res.data);
-        });
-    }
+    api
+      .get(`users/${userId}/`, {
+        headers: { Authorization: `Token ${userToken}` },
+      })
+      .then((res) => {
+        localStorage.setItem("user_info", JSON.stringify(res.data));
+        setUserInfo(res.data);
+      });
   };
 
   const [userWallets, setUserWallets] = useState();
