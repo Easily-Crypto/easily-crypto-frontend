@@ -6,6 +6,7 @@ import Wallet from "../../components/Wallet";
 import WalletEmpty from "../../components/WalletEmpty";
 
 const Wallets = () => {
+  
   const [wallets, setWallets] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [modalShow, setModalShow] = useState(false);
@@ -23,7 +24,7 @@ const Wallets = () => {
     .then((response) => setWallets(response.data))
   }
 
-  const seeAll = (id) => {
+  const seeAllTransactions = (id) => {
     
     api.get(`wallets/${id}/`, {
       
@@ -34,7 +35,6 @@ const Wallets = () => {
     .then((response) => setTransactions(response.data.transactions))
   }
 
-  // console.log(wallet[1].transactions)
   console.log(transactions)
   
   useEffect(() => {
@@ -49,7 +49,7 @@ const Wallets = () => {
       
       {wallets.length > 0 ? 
         
-        <Wallet listWallets={wallets} seeAll={seeAll} modalShow={modalShow} setModalShow={setModalShow}/>
+        <Wallet listWallets={wallets} seeAll={seeAllTransactions} modalShow={modalShow} setModalShow={setModalShow} />
     
       :
       
