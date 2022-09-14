@@ -3,6 +3,7 @@ import api from "../../api";
 import HeaderSection from "../../components/Header";
 import { Page } from "../../components/Page";
 import Wallet from "../../components/Wallet";
+import WalletEmpty from "../../components/WalletEmpty";
 
 const Wallets = () => {
   const [wallet, setWallet] = useState([]);
@@ -13,9 +14,9 @@ const Wallets = () => {
     
     api.get('wallets/', {
       
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // }
+      headers: {
+        Authorization: `Token ${token}`,
+      }
     })
     .then((response) => setWallet(response.data))
   }
@@ -28,22 +29,17 @@ const Wallets = () => {
   
   return (
     <Page>
-      <HeaderSection>
-      </HeaderSection>
-      {
-        wallet.length > 0 ? 
-        
+      <HeaderSection/>
+      
+      {wallet.length > 0 ? 
         
         <Wallet listWallets={wallet}/>
     
       :
       
-        <div>
-          <h3> Ops, tudo muito calmo por aqui...</h3>
-          <p> Vá até Market e compre seu primeiro criptoativo com 50%OFF !!! </p>
-        </div>
+        <WalletEmpty/>
       }
-
+      
     </Page>
   );
 };
