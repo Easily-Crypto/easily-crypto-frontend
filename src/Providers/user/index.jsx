@@ -6,11 +6,24 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState();
+  const [userWallets, setUserWallets] = useState();
 
-  const getUserInfo = () => {};
+  const getUserWallets = () => {
+    api
+      .get("http://localhost:8000/api/wallets/")
+      .then((res) => setUserWallets(res.data));
+  };
 
   return (
-    <UserContext.Provider value={{ userInfo, setUserInfo, getUserInfo }}>
+    <UserContext.Provider
+      value={{
+        userInfo,
+        setUserInfo,
+        userWallets,
+        setUserWallets,
+        getUserWallets,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
