@@ -36,7 +36,7 @@ const LoginFormComponent = () => {
       .post("login/", data)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-
+        localStorage.setItem("user_id", res.data.user_id);
         api.defaults.headers.common = {
           Authorization: `Token ${res.data.token}`,
         };
