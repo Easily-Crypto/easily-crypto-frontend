@@ -20,6 +20,7 @@ export const UserProvider = ({ children }) => {
       .then((res) => {
         localStorage.setItem("user_info", JSON.stringify(res.data));
         setUserInfo(res.data);
+        console.log("Oi");
       });
   };
 
@@ -29,10 +30,6 @@ export const UserProvider = ({ children }) => {
     api
       .get("http://localhost:8000/api/wallets/")
       .then((res) => setUserWallets(res.data));
-  };
-
-  const getUserInfo = () => {
-    api.get(`users/${userId}/`).then((res) => setUserId(res.data));
   };
 
   return (

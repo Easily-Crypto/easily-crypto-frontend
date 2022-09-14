@@ -1,8 +1,6 @@
 import { Header } from "./styled";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../api";
-import { useContext } from "react";
-import { UserContext } from "../../Providers/user";
 
 const HeaderSection = () => {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ const HeaderSection = () => {
         </nav>
         <button
           onClick={() => {
-            localStorage.removeItem("token");
+            localStorage.clear();
 
             api.defaults.headers.common = {
               Authorization: ``,
