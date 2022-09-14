@@ -1,14 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useUser } from "../../Providers/user";
 import { Container } from "./style";
 
 const CardInfo = () => {
-  const [userInfo, setUserInfo] = useState(
-    JSON.parse(localStorage.getItem("user_info"))
-  );
-  useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("user_info")));
-  }, []);
+  const { userInfo } = useUser();
 
   return (
     <Container>
