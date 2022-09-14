@@ -6,7 +6,9 @@ import Wallet from "../../components/Wallet";
 import WalletEmpty from "../../components/WalletEmpty";
 
 const Wallets = () => {
-  const [wallet, setWallet] = useState([]);
+  const [wallets, setWallets] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
 
   const token = localStorage.getItem('token');
   
@@ -18,9 +20,23 @@ const Wallets = () => {
         Authorization: `Token ${token}`,
       }
     })
-    .then((response) => setWallet(response.data))
+    .then((response) => setWallets(response.data))
   }
 
+  const seeAll = (id) => {
+    
+    api.get(`wallets/${id}/`, {
+      
+      headers: {
+        Authorization: `Token ${token}`,
+      }
+    })
+    .then((response) => setTransactions(response.data.transactions))
+  }
+
+  // console.log(wallet[1].transactions)
+  console.log(transactions)
+  
   useEffect(() => {
     
     listWallets()
@@ -31,9 +47,9 @@ const Wallets = () => {
     <Page>
       <HeaderSection/>
       
-      {wallet.length > 0 ? 
+      {wallets.length > 0 ? 
         
-        <Wallet listWallets={wallet}/>
+        <Wallet listWallets={wallets} seeAll={seeAll} modalShow={modalShow} setModalShow={setModalShow}/>
     
       :
       

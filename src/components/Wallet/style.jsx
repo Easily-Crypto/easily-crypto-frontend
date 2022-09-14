@@ -4,9 +4,11 @@ export const WalletContainer = styled.main`
     
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
-    height: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 10px;
     width: 90%;
     margin-top: 50px;
 
@@ -25,6 +27,7 @@ export const WalletContainer = styled.main`
         color: #111;
         background-color: #f0f8ff;
         box-shadow: 0 0 1em #353538;
+        margin: 10px;
 
         cursor: pointer;
     }

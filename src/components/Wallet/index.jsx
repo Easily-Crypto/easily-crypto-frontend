@@ -1,6 +1,9 @@
+import { Button } from "react-bootstrap";
+import Modal from "../Modal";
 import { WalletContainer } from "./style";
 
-const Wallet = ({listWallets}) => {
+const Wallet = ({listWallets, seeAll, setModalShow, modalShow}) => {
+    
 
     return (
         <WalletContainer>
@@ -21,6 +24,17 @@ const Wallet = ({listWallets}) => {
                             })}
                         </p>
                     </div>
+                    
+                    <Button variant="primary" onClick={() => setModalShow(true)}>
+                        See All Transactions
+                    </Button>
+                    
+                    <Modal 
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
+                    
+                    {/* <button onClick={() => seeAll(id)}> see all </button> */}
                 </li>
         )}
       </WalletContainer>
