@@ -1,9 +1,13 @@
 import { Header } from "./styled";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../api";
+import { useUser } from "../../Providers/user";
 
 const HeaderSection = () => {
+  const { setIsLoggedIn } = useUser();
+
   const navigate = useNavigate();
+
   return (
     <Header>
       <div>
@@ -18,6 +22,7 @@ const HeaderSection = () => {
         <button
           onClick={() => {
             localStorage.clear();
+            setIsLoggedIn(false);
 
             api.defaults.headers.common = {
               Authorization: ``,

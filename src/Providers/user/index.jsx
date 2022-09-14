@@ -6,41 +6,54 @@ import api from "../../api";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [userInfo, setUserInfo] = useState();
 
-  const [userId, setUserId] = useState(localStorage.getItem("user_id") || "");
   const [userToken, setUserToken] = useState(
     localStorage.getItem("token") || ""
   );
-  const getUserInfoProfile = () => {
-    api
-      .get(`users/${userId}/`, {
-        headers: { Authorization: `Token ${userToken}` },
-      })
-      .then((res) => {
-        localStorage.setItem("user_info", JSON.stringify(res.data));
-        setUserInfo(res.data);
-        console.log("Oi");
-      });
-  };
 
   const [userWallets, setUserWallets] = useState();
 
   const getUserWallets = () => {
     api
-      .get("http://localhost:8000/api/wallets/")
+      .get("wallets/", {
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+      })
       .then((res) => setUserWallets(res.data));
   };
+
+  const getUserInfos = (user_id) => {
+    api
+      .get(`users/${user_id}/`, {
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+      })
+      .then((res) => setUserInfo(res.data));
+  };
+
+  useEffect(() => {
+    getUserWallets();
+    getUserInfos(localStorage.getItem("user_id"));
+  }, []);
 
   return (
     <UserContext.Provider
       value={{
-        getUserInfoProfile,
+        isLoggedIn,
+        setIsLoggedIn,
         userInfo,
         setUserInfo,
+        userToken,
+        setUserToken,
         userWallets,
         setUserWallets,
         getUserWallets,
+        getUserInfos,
       }}
     >
       {children}
