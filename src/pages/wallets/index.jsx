@@ -8,7 +8,9 @@ import WalletEmpty from "../../components/WalletEmpty";
 import { useUser } from "../../Providers/user";
 
 const Wallets = () => {
+
   // const [wallets, setWallets] = useState([]);
+
   const [transactions, setTransactions] = useState([]);
   const [modalShow, setModalShow] = useState(false);
 
@@ -37,33 +39,37 @@ const Wallets = () => {
   //     .then((response) => setWallets(response.data));
   // };
 
-  const seeAll = (id) => {
-    api
-      .get(`wallets/${id}/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((response) => setTransactions(response.data.transactions));
-  };
 
-  // console.log(wallet[1].transactions)
-  console.log(transactions);
+  const seeAllTransactions = (id) => {
+    
+    api.get(`wallets/${id}/`, {
+      
+      headers: {
+        Authorization: `Token ${token}`,
+      }
+    })
+    .then((response) => setTransactions(response.data.transactions))
+  }
+
+  console.log(transactions)
+  
 
   return (
     <Page>
+
       <HeaderSection />
 
       {userWallets ? (
         <Wallet
           listWallets={userWallets}
-          seeAll={seeAll}
+          seeAll={seeAllTransactions}
           modalShow={modalShow}
           setModalShow={setModalShow}
         />
       ) : (
         <WalletEmpty />
       )}
+
     </Page>
   );
 };
