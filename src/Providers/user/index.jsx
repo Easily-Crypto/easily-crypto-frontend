@@ -6,12 +6,14 @@ import api from "../../api";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+
   const [userInfo, setUserInfo] = useState();
+
   const [userId, setUserId] = useState(localStorage.getItem("user_id") || "");
   const [userToken, setUserToken] = useState(
     localStorage.getItem("token") || ""
   );
-  const getUserInfo = () => {
+  const getUserInfoProfile = () => {
     if (localStorage.getItem("user_info").length) {
       api
         .get(`users/${userId}/`, {
@@ -21,10 +23,35 @@ export const UserProvider = ({ children }) => {
           localStorage.setItem("user_info", JSON.stringify(res.data));
         });
     }
+
+  const [userWallets, setUserWallets] = useState();
+
+  const userId = JSON.parse(localStorage.getItem('user_id'))
+
+  const getUserWallets = () => {
+    api
+      .get("http://localhost:8000/api/wallets/")
+      .then((res) => setUserWallets(res.data));
+  };
+  
+  const getUserInfo = () => {
+    api
+    .get(`users/${userId}/`)
+    .then((res) => setUserId(res.data))
+
   };
 
   return (
-    <UserContext.Provider value={{ userInfo, setUserInfo, getUserInfo }}>
+    <UserContext.Provider
+      value={{
+      getUserInfoProfile,
+        userInfo,
+        setUserInfo,
+        userWallets,
+        setUserWallets,
+        getUserWallets,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

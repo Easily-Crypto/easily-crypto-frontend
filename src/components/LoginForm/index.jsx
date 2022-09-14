@@ -8,9 +8,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useUser } from "../../Providers/user";
 
 const LoginFormComponent = () => {
   const navigate = useNavigate();
+
+  const { getUserWallets } = useUser();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -30,7 +33,7 @@ const LoginFormComponent = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  console.log(errors);
+
   const onSubmit = (data) => {
     api
       .post("login/", data)
@@ -40,6 +43,9 @@ const LoginFormComponent = () => {
         api.defaults.headers.common = {
           Authorization: `Token ${res.data.token}`,
         };
+
+        getUserWallets();
+
         toast.success("Login realizado com sucesso");
         navigate("/");
       })
