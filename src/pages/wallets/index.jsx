@@ -7,16 +7,17 @@ import Wallet from "../../components/Wallet";
 const Wallets = () => {
   const [wallet, setWallet] = useState([]);
 
-  // const token = localStorage.getItem('token');
-  const token = 'f79e82320ad69e02c81da946ebfd2c5b56b1abf5'
+  const token = localStorage.getItem('token');
+  console.log(token)
+  // const token = 'f79e82320ad69e02c81da946ebfd2c5b56b1abf5'
   
   const listWallets = () => {
     
     api.get('wallets/', {
       
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // }
     })
     // .then((response) => console.log(response))
     .then((response) => setWallet(response.data))
@@ -27,17 +28,45 @@ const Wallets = () => {
     
     listWallets()
 
-  }, [wallet])
+  }, [])
   
   return (
     <Page>
       <HeaderSection>
       </HeaderSection>
+
+
+      {/* <WalletContainer>
+        {wallet.length > 0 ?
+        
+          wallet.map(({name, id, wallet_value }) => 
+
+            <li key={id}>
+              <h2>{name}</h2>
+              <p>
+                Subtotal: {wallet_value}
+              </p>
+            </li>
+
+        )
+        :
+        
+          <div>
+            <h1>See all Wallets</h1>
+            <button onClick={listWallets}></button>
+          
+          </div>
+        
+        }
+
+      </WalletContainer> */}
+
+    
       {
         wallet.length > 0 ? 
         
-        <Wallet listWallets={listWallets}/>
-
+        
+        <Wallet listWallets={wallet}/>
     
       :
       
