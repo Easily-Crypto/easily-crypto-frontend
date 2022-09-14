@@ -59,6 +59,10 @@ export const LoginForm = styled.form`
       font-weight: bold;
     }
   }
+  .input-error {
+    color: red;
+    margin-left: 10px;
+  }
 `;
 
 export const InputLoginForm = styled.input`

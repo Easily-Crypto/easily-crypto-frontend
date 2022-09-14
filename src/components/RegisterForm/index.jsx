@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api";
-
+import { toast } from "react-toastify";
 const RegisterFormComponent = () => {
   const navigator = useNavigate();
   const formSchema = yup.object().shape({
@@ -18,11 +18,11 @@ const RegisterFormComponent = () => {
     password: yup
       .string()
       .required("Senha obrigatória")
-      .matches(/(?=.*[a-z])/, "Deve conter pelo menos uma letra minuscula")
-      .matches(/(?=.*[A-Z])/, "Deve conter pelo menos uma letra maiuscula")
-      .matches(/(?=.*[0-9])/, "Deve conter pelo menos um numero")
-      .matches(/(?=.*[!$*&@#])/, "Deve conter pelo menos um caracter especial")
-      .min(8, "Deve ter no mínimo 8 caracteres"),
+      .matches(/(?=.*[a-z])/, "Requer uma letra minuscula")
+      .matches(/(?=.*[A-Z])/, "Requer uma letra maiuscula")
+      .matches(/(?=.*[0-9])/, "Requer um numero")
+      .matches(/(?=.*[!$*&@#])/, "Requer um caracter especial")
+      .min(8, "Requer mínimo de 8 caracteres"),
     passwordConfirmation: yup
       .string()
       .required("Confirme sua senha")
@@ -36,34 +36,83 @@ const RegisterFormComponent = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  console.log(errors);
+
   const handleRegister = (data) => {
     api
       .post("users/register/", data)
       .then((res) => {
-        console.log("oi");
+        toast.success("Cadastro realizdo com sucesso");
         return navigator("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        if (err.response.data.username) {
+          toast.error("Nome de usuário indisponível");
+        } else if (err.response.data.email) {
+          toast.error("Email já utilizado");
+        }
+      });
   };
   return (
     <RegisterForm onSubmit={handleSubmit(handleRegister)}>
       <h3>Easily Crypto</h3>
-      <label>Nome:</label>
+      <label>
+        Nome:{" "}
+        {errors.first_name && (
+          <span className="input-error">{errors.first_name.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("first_name")} />
-      <label>Sobrenome:</label>
+      <label>
+        Sobrenome:{" "}
+        {errors.last_name && (
+          <span className="input-error">{errors.last_name.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("last_name")} />
-      <label>Nome de usuário:</label>
+      <label>
+        Nome de usuário:{" "}
+        {errors.username && (
+          <span className="input-error">{errors.username.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("username")} />
-      <label>E-mail:</label>
+      <label>
+        E-mail:{" "}
+        {errors.email && (
+          <span className="input-error">{errors.email.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("email")} />
-      <label>Data de nascimento:</label>
+      <label>
+        Data de nascimento:{" "}
+        {errors.birth_date && (
+          <span className="input-error">{errors.birth_date.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("birth_date")} />
-      <label>CPF:</label>
+      <label>
+        CPF:{" "}
+        {errors.cpf && (
+          <span className="input-error">{errors.cpf.message}</span>
+        )}
+      </label>
       <InputRegisterForm {...register("cpf")} />
-      <label>Senha:</label>
+      <label>
+        Senha:{" "}
+        {errors.password && (
+          <span className="input-error">{errors.password.message}</span>
+        )}
+      </label>
       <InputRegisterForm type="password" {...register("password")} />
-      <label>Confirme sua senha:</label>
+      <label>
+        Confirme sua senha:{" "}
+        {errors.passwordConfirmation && (
+          <span className="input-error">
+            {errors.passwordConfirmation.message}
+          </span>
+        )}
+      </label>
       <InputRegisterForm
         type="password"
         {...register("passwordConfirmation")}
