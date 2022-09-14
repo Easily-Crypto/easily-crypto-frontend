@@ -18,8 +18,25 @@ const ModalComp = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Historic of transactions</h4>
+
+        {/* {listTransactions.map(({id, name}) => 
+            <div key={id}>
+                <p>
+                    {name}
+                </p>
+            </div>
+        )} */}
+        
         <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
           consectetur ac, vestibulum at eros.

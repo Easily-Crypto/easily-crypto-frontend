@@ -1,12 +1,12 @@
-import HeaderSection from "../../components/Header";
-import { Page } from "../../components/Page";
-import Bitcoin from "../../assets/bitcoin.svg";
 import Bars from "../../assets/bars.svg";
+import Bitcoin from "../../assets/bitcoin.svg";
 import Graphic from "../../assets/graphic.svg";
 import Person from "../../assets/person.svg";
-import { DescriptionSection, Content, ImageSection } from "./styled";
 import Card from "../../components/Card";
+import HeaderSection from "../../components/Header";
+import { Page } from "../../components/Page";
 import { useUser } from "../../Providers/user";
+import { Content, DescriptionSection, ImageSection } from "./styled";
 
 const Home = () => {
   const { userInfo } = useUser();
