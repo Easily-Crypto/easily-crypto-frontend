@@ -12,6 +12,7 @@ export const Content = styled.div`
 export const DescriptionSection = styled.section`
   width: 50%;
   font-size: 22px;
+  font-weight: bolder;
   color: #f3f3f3;
 `;
 

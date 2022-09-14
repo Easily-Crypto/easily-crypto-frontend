@@ -27,6 +27,7 @@ export const Container = styled.section`
   p {
     color: #000000;
     font-size: 14px;
+    font-weight: 500;;
   }
 
   h2 {
