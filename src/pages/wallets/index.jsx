@@ -1,28 +1,44 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import HeaderSection from "../../components/Header";
 import { Page } from "../../components/Page";
 import Wallet from "../../components/Wallet";
 import WalletEmpty from "../../components/WalletEmpty";
+import { useUser } from "../../Providers/user";
 
 const Wallets = () => {
-  
-  const [wallets, setWallets] = useState([]);
+
+  // const [wallets, setWallets] = useState([]);
+
   const [transactions, setTransactions] = useState([]);
   const [modalShow, setModalShow] = useState(false);
 
-  const token = localStorage.getItem('token');
-  
-  const listWallets = () => {
-    
-    api.get('wallets/', {
-      
-      headers: {
-        Authorization: `Token ${token}`,
-      }
-    })
-    .then((response) => setWallets(response.data))
-  }
+  const { userInfo, isLoggedIn } = useUser();
+
+  const navigate = useNavigate();
+
+  const { userWallets, setUserWallets, getUserWallets } = useUser();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+    getUserWallets();
+  }, []);
+
+  const token = localStorage.getItem("token");
+
+  // const listWallets = () => {
+  //   api
+  //     .get("wallets/", {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((response) => setWallets(response.data));
+  // };
+
 
   const seeAllTransactions = (id) => {
     
@@ -37,25 +53,23 @@ const Wallets = () => {
 
   console.log(transactions)
   
-  useEffect(() => {
-    
-    listWallets()
 
-  }, [])
-  
   return (
     <Page>
-      <HeaderSection/>
-      
-      {wallets.length > 0 ? 
-        
-        <Wallet listWallets={wallets} seeAll={seeAllTransactions} modalShow={modalShow} setModalShow={setModalShow} />
-    
-      :
-      
-        <WalletEmpty/>
-      }
-      
+
+      <HeaderSection />
+
+      {userWallets ? (
+        <Wallet
+          listWallets={userWallets}
+          seeAll={seeAllTransactions}
+          modalShow={modalShow}
+          setModalShow={setModalShow}
+        />
+      ) : (
+        <WalletEmpty />
+      )}
+
     </Page>
   );
 };

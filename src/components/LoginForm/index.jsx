@@ -13,10 +13,15 @@ import { useUser } from "../../Providers/user";
 const LoginFormComponent = () => {
   const navigate = useNavigate();
 
-  const { getUserWallets, getUserInfoProfile } = useUser();
+  const { getUserWallets, isLoggedIn, setIsLoggedIn, getUserInfos } = useUser();
 
   useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+
     if (localStorage.getItem("token")) {
+      setIsLoggedIn(true);
       navigate("/");
     }
   }, []);
@@ -45,9 +50,11 @@ const LoginFormComponent = () => {
         };
 
         getUserWallets();
-        getUserInfoProfile();
+
+        getUserInfos(res.data.user_id);
 
         toast.success("Login realizado com sucesso");
+        setIsLoggedIn(true);
         navigate("/");
       })
       .catch((err) => toast.error("Usuário e/ou senha incorretos"));

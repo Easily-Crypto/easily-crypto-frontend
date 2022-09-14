@@ -6,8 +6,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api";
 import { toast } from "react-toastify";
+import { useUser } from "../../Providers/user";
+import { useEffect } from "react";
+
 const RegisterFormComponent = () => {
   const navigator = useNavigate();
+
+  const { getUserWallets, isLoggedIn, setIsLoggedIn } = useUser();
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+    if (isLoggedIn) {
+      navigator("/");
+    }
+  }, []);
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Digite um nome de usuário"),
     first_name: yup.string().required("Digite seu primeiro nome"),

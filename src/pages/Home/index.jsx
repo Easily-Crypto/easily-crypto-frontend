@@ -6,17 +6,30 @@ import Card from "../../components/Card";
 import HeaderSection from "../../components/Header";
 import { Page } from "../../components/Page";
 import { useUser } from "../../Providers/user";
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Content, DescriptionSection, ImageSection } from "./styled";
 
 const Home = () => {
-  const { userInfo } = useUser();
+  const { userInfo, isLoggedIn } = useUser();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, []);
+  console.log(userInfo);
 
   return (
     <Page>
       <HeaderSection />
       <Content>
         <DescriptionSection>
-          <p>Olá, {userInfo.username}!</p>
+          {userInfo && <p>Olá, {userInfo.first_name}!</p>}
           <Card
             img={Person}
             title="Valorizamos a relação entre cliente e empresa"

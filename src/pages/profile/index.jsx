@@ -1,13 +1,19 @@
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import HeaderSection from "../../components/Header";
 import MyInfos from "../../components/MyInfos";
 import { Page } from "../../components/Page";
-import { UserContext } from "../../Providers/user";
+import { UserContext, useUser } from "../../Providers/user";
 
 const Profile = () => {
-  const { getUserInfoProfile } = useContext(UserContext);
+  const { userInfo, isLoggedIn } = useUser();
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getUserInfoProfile();
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
   }, []);
 
   return (
