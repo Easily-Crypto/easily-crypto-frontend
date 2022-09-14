@@ -6,9 +6,10 @@ import Graphic from "../../assets/graphic.svg";
 import Person from "../../assets/person.svg";
 import { DescriptionSection, Content, ImageSection } from "./styled";
 import Card from "../../components/Card";
+import { useUser } from "../../Providers/user";
 
 const Home = () => {
-  const userInfo = JSON.parse(localStorage.getItem("user_info"));
+  const { userInfo } = useUser();
 
   return (
     <Page>
